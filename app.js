@@ -10,7 +10,7 @@ let TT = (function() {
 		this.aa = setInterval(
 			(function(self) {
 				return function() {
-					self.countdown(document.getElementById('minute'), document.getElementById('seconds'));
+					self.countup(document.getElementById('minute'), document.getElementById('seconds'));
 				}
 			})(this),
 			1000);
@@ -18,7 +18,7 @@ let TT = (function() {
 	TT.prototype.hint = function(_status) {
 		this.hnt.innerHTML = (_status) ? _status : ("Next Character: " + ((this.txt.innerHTML[0] === " ") ? "[space]" : this.txt.innerHTML[0]));
 	}
-	TT.prototype.countdown = function(min, sec) {
+	TT.prototype.countup = function(min, sec) {
 		let _sec = parseInt(sec.innerHTML);
 		let _min = parseInt(min.innerHTML);
 
