@@ -1,5 +1,60 @@
 "use strict";
 
+let TT = (function() {
+	function TT(txt, hnt) {
+		this.txt = document.getElementsByClassName(txt)[0];
+		this.hnt = document.getElementsByClassName(hnt)[0];
+		this.script = "hello";
+		this.txt.innerHTML = this.script;
+		this.hint();//invoke to see next char
+		this.aa = setInterval(
+			(function(self) {
+				return function() {
+					self.countdown(document.getElementById('minute'), document.getElementById('seconds'));
+				}
+			})(this),
+			1000);
+	}
+	TT.prototype.hint = function(_status) {
+		this.hnt.innerHTML = (_status) ? _status : ("Next Character: " + ((this.txt.innerHTML[0] === " ") ? "[space]" : this.txt.innerHTML[0]));
+	}
+	TT.prototype.countdown = function(min, sec) {
+		let _sec = parseInt(sec.innerHTML);
+		let _min = parseInt(min.innerHTML);
+
+		_sec++;
+		sec.innerHTML = (_sec < 10) ? '0' + _sec : _sec;
+
+		if (_sec === 60) {
+			_min++;
+			min.innerHTML = (_min < 10) ? '0' + _min : _min;
+			sec.innerHTML = 0;
+		}
+	}
+	TT.prototype.keydown = function() {
+      if (this.txt.innerHTML[0] === event.key) {
+        this.txt.innerHTML = this.txt.innerHTML.slice(1, this.txt.innerHTML.length);//remove typed character
+      } else if (event.key === "Control" || event.key === "Alt" || event.key === "Shift" || event.key === "Tab" || event.key === "Meta" || event.key === "ArrowUp" || event.key === "Arrowdown" || event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        //do nothing
+      } else {
+      }
+
+      //test script if done
+      if (this.txt.innerHTML.length === 0) {
+        window.removeEventListener("keydown", this.keyDown, true);
+				this.hint("Done !");
+				clearInterval(this.aa);
+      } else {
+				this.hint();
+      }
+	}
+	return TT;
+})();
+
+let tt = new TT("text", "hint");
+window.addEventListener("keydown", tt.keydown.bind(tt), true);
+
+/*
 function typeTest(txt, hnt) {
   let _txt = document.getElementsByClassName(txt)[0];
   let _hnt = document.getElementsByClassName(hnt)[0];
@@ -46,3 +101,4 @@ function typeTest(txt, hnt) {
 }
 let t = typeTest("text", "hint");
 window.addEventListener("keydown", t.keyDown, true);
+*/
