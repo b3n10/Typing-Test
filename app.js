@@ -1,25 +1,4 @@
 "use strict";
-/*
-let TT = (function() {
-	function TT(txt, hnt) {
-		this.txt = document.getElementsByClassName(txt)[0];
-		this.hnt = document.getElementsByClassName(hnt)[0];
-		this.script = "hello";
-		this.txt.innerHTML = this.script;
-		this.hint();//invoke to see next char
-	}
-	TT.prototype.hint = function() {
-		this.hnt.innerHTML = "Next Character: " + ((this.txt.innerHTML[0] === " ") ? "[space]" : this.txt.innerHTML[0]);
-	}
-	TT.prototype.keydown = function() {
-		this.txt.innerHTML = event.key;
-	}
-	return TT;
-})();
-
-let tt = new TT("text", "hint");
-window.addEventListener("keydown", tt.keydown.bind(tt), true);
-*/
 
 function typeTest(txt, hnt) {
   let _txt = document.getElementsByClassName(txt)[0];
@@ -29,8 +8,9 @@ function typeTest(txt, hnt) {
   
   //init div texts
   _txt.innerHTML = _script;
+
 	function hint() {
-	_hnt.innerHTML = "Next Character: " + ((_txt.innerHTML[0] === " ") ? "[space]" : _txt.innerHTML[0]);
+		_hnt.innerHTML = "Next Character: " + ((_txt.innerHTML[0] === " ") ? "[space]" : _txt.innerHTML[0]);
 	}
 
 	hint();
@@ -58,7 +38,7 @@ function typeTest(txt, hnt) {
         _hnt.innerHTML = "Done !";
         console.log(score + " out of " + _script.length + ", total type: " + totalTyped);
       } else {
-			hint();
+				hint();
       }
     }
   }
