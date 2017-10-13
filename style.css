@@ -1,7 +1,7 @@
 * {
   font-family: sans;
 }
-div.container {
+.container {
   font-family: sans;
   margin: 0 auto;
   max-width: 700px;
@@ -10,7 +10,7 @@ pre {
   position: relative;
   white-space: pre-wrap;
 }
-div.text {
+.text {
   border: 1px dashed #ccc;
   font-size: 25px;
   height: 300px;
@@ -19,10 +19,7 @@ div.text {
   overflow: hidden;
   padding: 5px;
 }
-div.pointer {
-  font-size: 55px;
-  font-weight: 900;
-  position: absolute;
-  top: 40px;
-  left: 1px;
+
+.highlight {
+	color: #ff0000;
 }
