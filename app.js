@@ -1,15 +1,17 @@
 "use strict";
 
-let TypeTest = function(_txt, _hnt) {
-	let txt = document.getElementsByClassName(_txt)[0];
-	let hnt = document.getElementsByClassName(_hnt)[0];
+let TypeTest = function() {
+	let txt = document.getElementsByClassName("text")[0];
+	let hnt = document.getElementsByClassName("hint")[0];
+	let sp = 0, tp = 0;
 
 	let TTobj = {
-		txt1: "hello, my name is",
+		scripts: "wHat kind of portfolio projects do you think would a career shifter new to web development would impress employers or make someone hirable, give opinion for both front and backend please ",//should be taken from a json file, xml, or database
 
 		hint: function(_status) {
-			txt.innerHTML = TTobj.highlight(tt.txt1);
-			hnt.innerHTML = (_status) ? _status : ("Next Character: " + ((txt.innerHTML[0] === " ") ? "\< space \>" : txt.innerHTML[0]));
+			//console.log(event.key === this.scripts[0]);
+			txt.innerHTML = this.highlight(this.scripts);
+			hnt.innerHTML = (_status) ? _status : ("Next Character: " + ((this.scripts[0] === " ") ? "\< space \>" : this.scripts[0]));
 		},
 
 		highlight: function(_string) {
@@ -27,16 +29,26 @@ let TypeTest = function(_txt, _hnt) {
 			return text;
 		},
 
-		keyDown: function() {
-			//can't use this from addEventListener function
-			TTobj.txt1 = TTobj.txt1.slice(1, TTobj.txt1.length);//remove first character
+		score: function() {
+			tp++;
+			if (event.key === this.scripts[0]) {
+				sp++;
+			}
+			return "Accuracy: " + ((sp/tp)*100).toFixed(2) + "%";
+		},
 
-			//check if done
-			if (TTobj.txt1.length === 0) {
-				TTobj.hint("Done !");
-				window.removeEventListener("keydown", TTobj.keyDown, true);
-			} else {
-				TTobj.hint();
+		keyDown: function() {
+			if (event.key !== "Control" && event.key !== "Shift" && event.key !== "Meta" && event.key !== "Alt" && event.key !== "ArrowLeft" && event.key !== "ArrowUp" && event.key !== "ArrowDown" && event.key !== "ArrowRight") {
+				let s = this.score();
+				this.scripts = this.scripts.slice(1, this.scripts.length);//remove first character
+
+				//check if done
+				if (this.scripts.length === 0) {
+					this.hint("Done !<br>" + s);
+					window.removeEventListener("keydown", kd, true);
+				} else {
+					this.hint();
+				}
 			}
 		}
 	}
@@ -44,7 +56,8 @@ let TypeTest = function(_txt, _hnt) {
 	return TTobj;
 }
 
-let tt = TypeTest("text", "hint");
+let tt = TypeTest();
 tt.hint();//run once to see next char
-window.addEventListener("keydown", tt.keyDown, true);
+let kd = tt.keyDown.bind(tt);
+window.addEventListener("keydown", kd, true);
 
