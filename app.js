@@ -34,17 +34,29 @@ let TypeTest = (function() {
 		return "Accuracy: " + ((this.sp/this.tp) * 100).toFixed(2) + "%";
 	}
 	TypeTest.prototype.keyDown = function() {
-		if (event.key !== "Control" && event.key !== "Shift" && event.key !== "Meta" && event.key !== "Alt" && event.key !== "ArrowLeft" && event.key !== "ArrowUp" && event.key !== "ArrowDown" && event.key !== "ArrowRight") {
-			let s = this.score();
-			this.scripts = this.scripts.slice(1, this.scripts.length);//remove first character
+		switch (event.key) {
+			case "Control":
+			case "Shift":
+			case "Meta":
+			case "Alt":
+			case "ArrowLeft":
+			case "ArrowUp":
+			case "ArrowDown":
+			case "ArrowRight":
+				console.log("Special Key pressed");
+				break;
+			default:
+				const s = this.score();
+				this.scripts = this.scripts.slice(1, this.scripts.length);//remove first character
 
-			//check if done
-			if (this.scripts.length === 0) {
-				this.hint("Done !<br>" + s);
-				window.removeEventListener("keydown", kd, true);
-			} else {
-				this.hint();
-			}
+				//check if done
+				if (this.scripts.length === 0) {
+					this.hint("Done !<br>" + s + "<br>");
+					window.removeEventListener("keydown", kd, true);
+				} else {
+					this.hint();
+				}
+				break;
 		}
 	}
 	return TypeTest;
